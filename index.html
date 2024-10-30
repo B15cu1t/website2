@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking Multitool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .tool-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .tool-button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            width: 100%;
+            max-width: 250px; /* Reduced length of the output box */
+            height: 100px;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #ffffff;
+            font-family: monospace;
+            overflow-y: auto;
+        }
+        #commandsPopup, #windowsCommandsPopup, #linuxCommandsPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        #closePopup, #backPopup {
+            margin-top: 15px;
+            background-color: #d9534f;
+        }
+        #closePopup:hover, #backPopup:hover {
+            background-color: #c9302c;
+        }
+        .command {
+            margin-bottom: 10px;
+        }
+        .command-title {
+            font-weight: bold;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Networking Multitool</h1>
+    <div id="output" placeholder="Output will be displayed here..."></div>
+
+    <div class="button-container">
+        <button class="tool-button" onclick="getIPAddress()">Show IP Address</button>
+        <button class="tool-button" onclick="pingWebsite()">PING Tool</button>
+        <button class="tool-button" onclick="randomNumberGenerator()">Random Number Generator</button>
+        <button class="tool-button" onclick="toggleWindowsCommandsPopup()">Windows Commands</button>
+        <button class="tool-button" onclick="toggleLinuxCommandsPopup()">Linux Commands</button>
+    </div>
+
+    <!-- Windows Commands Popup -->
+    <div id="windowsCommandsPopup">
+        <h2>Windows Networking Commands</h2>
+
+        <div class="command">
+            <p class="command-title">List saved Wi-Fi networks</p>
+            <p><code>netsh wlan show profiles</code></p>
+            <p>Lists all Wi-Fi networks saved on the device.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">View Wi-Fi network password</p>
+            <p><code>netsh wlan show profile name="NETWORK_NAME" key=clear</code></p>
+            <p>Displays password of a saved Wi-Fi network.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Show available Wi-Fi networks with BSSID</p>
+            <p><code>netsh wlan show networks mode=bssid</code></p>
+            <p>Displays all available Wi-Fi networks and their BSSIDs.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Display current IP configuration</p>
+            <p><code>ipconfig</code></p>
+            <p>Shows IP addresses and network information for all interfaces.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Flush DNS cache</p>
+            <p><code>ipconfig /flushdns</code></p>
+            <p>Clears the DNS cache.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Ping a website or IP</p>
+            <p><code>ping DOMAIN_OR_IP</code></p>
+            <p>Checks connectivity to a remote server or website.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Trace the route to a website</p>
+            <p><code>tracert DOMAIN_OR_IP</code></p>
+            <p>Shows the path packets take to a remote host.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">View ARP table</p>
+            <p><code>arp -a</code></p>
+            <p>Shows cached IP-to-MAC address mappings on the network.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Show active TCP connections</p>
+            <p><code>netstat -an</code></p>
+            <p>Displays active connections and their states.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Check listening ports</p>
+            <p><code>netstat -an | find "LISTEN"</code></p>
+            <p>Lists all currently listening ports on the device.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">View routing table</p>
+            <p><code>route print</code></p>
+            <p>Displays the device’s routing table.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Switch user</p>
+            <p><code>runas /user:USERNAME cmd</code></p>
+            <p>Opens a command prompt as another user.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Create a new user</p>
+            <p><code>net user NEW_USERNAME NEW_PASSWORD /add</code></p>
+            <p>Creates a new user account with specified credentials.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Change a user’s password</p>
+            <p><code>net user USERNAME NEW_PASSWORD</code></p>
+            <p>Changes the password for a specified user account.</p>
+        </div>
+
+        <button id="backPopup" class="tool-button" onclick="toggleWindowsCommandsPopup()">Back</button>
+        <button id="closePopup" class="tool-button" onclick="toggleWindowsCommandsPopup()">Close</button>
+    </div>
+
+    <!-- Linux Commands Popup -->
+    <div id="linuxCommandsPopup">
+        <h2>Linux Networking Commands</h2>
+
+        <div class="command">
+            <p class="command-title">Show network interfaces</p>
+            <p><code>ifconfig</code> or <code>ip addr</code></p>
+            <p>Displays all network interfaces and their configurations.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Monitor network traffic</p>
+            <p><code>sudo tcpdump -i INTERFACE</code></p>
+            <p>Monitors packets on a specified network interface.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">Check routing table</p>
+            <p><code>netstat -rn</code> or <code>ip route</code></p>
+            <p>Displays routing table information.</p>
+        </div>
+
+        <div class="command">
+            <p class="command-title">View network statistics</p>
+            <p><code>ifstat</code> or <code>netstat -i</code></p>
+            <p>Shows network statistics for interfaces.</p>
+        </div>
+
+        <button id="backPopup" class="tool-button" onclick="toggleLinuxCommandsPopup()">Back</button>
+        <button id="closePopup" class="tool-button" onclick="toggleLinuxCommandsPopup()">Close</button>
+    </div>
+
+    <script>
+        function getIPAddress() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const output = 'Your IP Address: ' + data.ip;
+                    document.getElementById('output').textContent = output;
+                })
+                .catch(error => {
+                    document.getElementById('output').textContent = 'Error fetching IP address.';
+                });
+        }
+
+        function pingWebsite() {
+            const domain = prompt('Enter a domain (e.g., google.com):');
+            if (domain) {
+                const output = `Pinging ${domain}...\n`;
+                const ip = '192.168.1.1'; // Simulated IP address for demonstration
+                const ms = Math.floor(Math.random() * 100) + 1; // Simulated response time
+
+                document.getElementById('output').textContent = `${output}IP: ${ip} - Response Time: ${ms} ms`;
+            }
+        }
+
+        function randomNumberGenerator() {
+            const randomNumber = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('output').textContent = 'Random Number: ' + randomNumber;
+        }
+
+        function toggleWindowsCommandsPopup() {
+            const windowsCommandsPopup = document.getElementById('windowsCommandsPopup');
+            windowsCommandsPopup.style.display = windowsCommandsPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleLinuxCommandsPopup() {
+            const linuxCommandsPopup = document.getElementById('linuxCommandsPopup');
+            linuxCommandsPopup.style.display = linuxCommandsPopup.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+
+</body>
+</html>
