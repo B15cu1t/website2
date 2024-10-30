@@ -184,7 +184,7 @@
             <p>Changes the password for a specified user account.</p>
         </div>
 
-        <button id="backPopup" class="tool-button" onclick="toggleWindowsCommandsPopup()">Back</button>
+        <button id="backPopup" class="tool-button" onclick="toggleLinuxCommandsPopup()">Back</button>
         <button id="closePopup" class="tool-button" onclick="toggleWindowsCommandsPopup()">Close</button>
     </div>
 
@@ -233,14 +233,29 @@
                 });
         }
 
-        function pingWebsite() {
+        async function pingWebsite() {
             const domain = prompt('Enter a domain (e.g., google.com):');
             if (domain) {
                 const output = `Pinging ${domain}...\n`;
-                const ip = '192.168.1.1'; // Simulated IP address for demonstration
-                const ms = Math.floor(Math.random() * 100) + 1; // Simulated response time
 
-                document.getElementById('output').textContent = `${output}IP: ${ip} - Response Time: ${ms} ms`;
+                try {
+                    // Fetching IP address from the ip-api service
+                    const response = await fetch(`http://ip-api.com/json/${domain}`);
+                    const data = await response.json();
+                    
+                    // Check for an error in the response
+                    if (data.status !== "success") {
+                        document.getElementById('output').textContent = `${output}Error: ${data.message}`;
+                        return;
+                    }
+
+                    const ip = data.query; // Get the resolved IP address
+                    const ms = Math.floor(Math.random() * 100) + 1; // Simulated response time
+
+                    document.getElementById('output').textContent = `${output}IP: ${ip} - Response Time: ${ms} ms`;
+                } catch (error) {
+                    document.getElementById('output').textContent = `${output}Error: Unable to fetch IP address.`;
+                }
             }
         }
 
