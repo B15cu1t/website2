@@ -152,8 +152,10 @@ section {
 }
 
 .project-card {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
+    min-height: 350px;
+    width: 100%;
 }
 
 .project-card:hover {
@@ -166,27 +168,28 @@ section {
     backdrop-filter: blur(15px);
     border: 1px solid var(--card-border);
     border-radius: 18px;
-    padding: 2.5rem;
+    padding: 2rem;
     color: var(--text-light);
     transition: all 0.4s ease;
+    height: 100%;
 }
 
 .card-img-top {
     border-radius: 12px;
-    max-height: 220px;
+    max-height: 200px;
     width: 100%;
     object-fit: cover;
     margin-bottom: 1.5rem;
 }
 
 .card-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
     color: var(--text-light);
 }
 
 .card-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 300;
 }
 
@@ -246,6 +249,11 @@ footer {
 
 .heart {
     color: var(--accent);
+}
+
+#project-container {
+    z-index: 2;
+    position: relative;
 }
 
 #back-to-top {
@@ -376,6 +384,8 @@ body.light-mode footer {
     }
     .project-card {
         width: 100%;
+        min-height: 350px;
+        margin-bottom: 1.5rem;
     }
     .row {
         display: flex;
@@ -385,9 +395,20 @@ body.light-mode footer {
     .col-md-4 {
         flex: 1 1 100%;
         max-width: 100%;
+        min-width: 100%;
     }
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .col-md-4 {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+    }
+    .project-card {
+        margin-bottom: 2rem;
     }
 }
