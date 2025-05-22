@@ -1,0 +1,351 @@
+:root {
+    --bg-dark: #171a21;
+    --bg-secondary: #21252b;
+    --text-light: #ffffff;
+    --accent: #a100f2;
+    --card-bg: rgba(33, 37, 43, 0.85);
+    --card-border: rgba(255, 255, 255, 0.15);
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.7;
+    margin: 0;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background: transparent;
+}
+
+.navbar {
+    background-color: var(--bg-dark);
+    padding: 1.2rem 0;
+    box-shadow: var(--shadow);
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-light) !important;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    color: var(--text-light) !important;
+    margin-left: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: var(--accent) !important;
+}
+
+.hero {
+    min-height: 85vh;
+    background: linear-gradient(135deg, var(--bg-dark), #2a2e3a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.typing-effect {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid var(--accent);
+    animation: typing 3s steps(30, end) forwards, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+.hero .lead {
+    font-size: 1.5rem;
+    font-weight: 300;
+    max-width: 650px;
+    margin: 0 auto 2rem;
+}
+
+.btn-accent {
+    background-color: var(--accent);
+    color: var(--bg-dark);
+    border: none;
+    font-weight: 500;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-accent:hover, .btn-accent:focus {
+    background-color: #8200c2;
+    box-shadow: 0 0 15px rgba(161, 0, 242, 0.5);
+}
+
+.btn-outline-accent {
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 0.5rem 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-accent:hover, .btn-outline-accent.active {
+    background-color: var(--accent);
+    color: var(--bg-dark);
+    box-shadow: 0 0 10px rgba(161, 0, 242, 0.3);
+}
+
+.badge.bg-accent {
+    background-color: var(--accent) !important;
+    color: var(--bg-dark);
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+}
+
+section {
+    padding: 6rem 0;
+}
+
+.project-card {
+    margin-bottom: 2.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(161, 0, 242, 0.2);
+}
+
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    padding: 2rem;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.card-img-top {
+    border-radius: 10px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.card-text {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.bg-secondary {
+    background-color: var(--bg-secondary) !important;
+}
+
+.progress {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 1.2rem;
+}
+
+.progress-bar.bg-accent {
+    background-color: var(--accent) !important;
+}
+
+.form-control {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-light);
+    border-radius: 10px;
+    font-size: 1rem;
+    padding: 0.75rem;
+}
+
+.form-control:focus {
+    background-color: var(--card-bg);
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(161, 0, 242, 0.3);
+    color: var(--text-light);
+}
+
+.form-label {
+    font-weight: 400;
+    color: var(--text-light);
+}
+
+.social-links a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover, .social-links a:focus {
+    color: #8200c2;
+}
+
+footer {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: 300;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.macedonia-flag {
+    font-size: 1.2rem;
+}
+
+.heart {
+    color: var(--accent);
+}
+
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Light Mode */
+body.light-mode {
+    background-color: #f8f9fa;
+    color: #0f1117;
+}
+
+body.light-mode .navbar {
+    background-color: #ffffff;
+    box-shadow: var(--shadow);
+}
+
+body.light-mode .nav-link, body.light-mode .navbar-brand {
+    color: #0f1117 !important;
+}
+
+body.light-mode .nav-link:hover, body.light-mode .nav-link:focus {
+    color: var(--accent) !important;
+}
+
+body.light-mode .hero {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    color: #0f1117;
+}
+
+body.light-mode .card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #0f1117;
+}
+
+body.light-mode .card-title {
+    color: #0f1117;
+}
+
+body.light-mode .bg-secondary {
+    background-color: #e9ecef !important;
+}
+
+body.light-mode .form-control {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #0f1117;
+}
+
+body.light-mode .form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(161, 0, 242, 0.3);
+}
+
+body.light-mode .form-label {
+    color: #0f1117;
+}
+
+body.light-mode footer {
+    background-color: #ffffff;
+    color: #0f1117;
+}
+
+body.light-mode .progress {
+    background-color: #e9ecef;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero .lead {
+        font-size: 1.2rem;
+    }
+    .btn-lg {
+        padding: 0.7rem 1.5rem;
+        font-size: 1.1rem;
+    }
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+    .nav-link {
+        font-size: 1rem;
+        margin-left: 0.8rem;
+    }
+    .card-title {
+        font-size: 1.3rem;
+    }
+    .card-text {
+        font-size: 0.95rem;
+    }
+    .card-img-top {
+        max-height: 150px;
+    }
+}
