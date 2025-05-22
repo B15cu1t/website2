@@ -1,23 +1,48 @@
+// Fallback projects if fetch fails
+const fallbackProjects = [
+    {
+        title: "Table Extraction Tool",
+        description: "A Python script to automate extraction of tables from documents or websites.",
+        category: "Python",
+        technologies: ["Python"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Geo-Locator",
+        description: "A C# WinForms app that uses a public API to locate servers via DNS or IP.",
+        category: "C#",
+        technologies: ["C#", ".NET", "WinForms"],
+        link: "#",
+        image: ""
+    }
+];
+
 // Load projects from JSON
-fetch('projects.json')
+fetch('projects.json', { cache: 'no-store' })
     .then(response => {
-        if (!response.ok) throw new Error('Failed to load projects.json');
+        console.log('Fetch status:', response.status, 'URL:', response.url);
+        if (!response.ok) throw new Error(`Failed to load projects.json: ${response.statusText}`);
         return response.json();
     })
     .then(data => {
         console.log('Projects loaded:', data);
         displayProjects(data);
+        initParticles(); // Initialize particles after projects load
     })
     .catch(error => {
         console.error('Error loading projects:', error);
         document.getElementById('project-fallback').style.display = 'block';
+        document.getElementById('project-fallback').innerHTML = `<p>Error loading projects: ${error.message}. Showing fallback projects.</p>`;
+        displayProjects(fallbackProjects); // Use fallback data
+        initParticles();
     });
 
 // Display projects
 function displayProjects(projects) {
     const container = document.getElementById('project-container');
     container.innerHTML = '';
-    projects.forEach(project => {
+    projects.forEach((project, index) => {
         const image = project.image ? `<img src="${project.image}" class="card-img-top" alt="${project.title} screenshot">` : '';
         const card = `
             <div class="col-md-4 project-card" data-category="${project.category}">
@@ -33,6 +58,7 @@ function displayProjects(projects) {
             </div>
         `;
         container.innerHTML += card;
+        console.log(`Rendered project ${index + 1}: ${project.title}`);
     });
 }
 
@@ -123,21 +149,23 @@ backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Particles.js for background nodes
-particlesJS('particles-js', {
-    particles: {
-        number: { value: 50, density: { enable: true, value_area: 1000 } },
-        color: { value: '#a100f2' },
-        shape: { type: 'circle' },
-        opacity: { value: 0.3, random: true },
-        size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 120, color: '#a100f2', opacity: 0.3, width: 1 },
-        move: { enable: true, speed: 1.5, direction: 'none', random: true }
-    },
-    interactivity: {
-        detect_on: 'canvas',
-        events: { onhover: { enable: false }, onclick: { enable: true, mode: 'push' } },
-        modes: { push: { particles_nb: 3 } }
-    }
-});
-console.log('Particles.js initialized');
+// Initialize Particles.js
+function initParticles() {
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 40, density: { enable: true, value_area: 1000 } },
+            color: { value: '#a100f2' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.3, random: true },
+            size: { value: 3, random: true },
+            line_linked: { enable: true, distance: 120, color: '#a100f2', opacity: 0.3, width: 1 },
+            move: { enable: true, speed: 1.5, direction: 'none', random: true }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: { onhover: { enable: false }, onclick: { enable: true, mode: 'push' } },
+            modes: { push: { particles_nb: 3 } }
+        }
+    });
+    console.log('Particles.js initialized');
+}
