@@ -1,8 +1,16 @@
 // Load projects from JSON
 fetch('projects.json')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to load projects.json');
+        return response.json();
+    })
     .then(data => {
+        console.log('Projects loaded:', data);
         displayProjects(data);
+    })
+    .catch(error => {
+        console.error('Error loading projects:', error);
+        document.getElementById('project-fallback').style.display = 'block';
     });
 
 // Display projects
@@ -36,13 +44,15 @@ document.querySelectorAll('.filter-buttons .btn').forEach(button => {
         const category = button.getAttribute('data-filter');
         const cards = document.querySelectorAll('.project-card');
         cards.forEach(card => {
-            card.style.transition = 'opacity 0.3s ease';
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
             if (category === 'all' || card.getAttribute('data-category') === category) {
                 card.style.display = 'block';
                 card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
             } else {
                 card.style.opacity = '0';
-                setTimeout(() => { card.style.display = 'none'; }, 300);
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => { card.style.display = 'none'; }, 400);
             }
         });
     });
@@ -62,8 +72,21 @@ if (localStorage.getItem('theme') === 'light') {
 // Form submission
 document.getElementById('contact-form').addEventListener('submit', e => {
     e.preventDefault();
-    alert('Form submitted! Use Formspree for real submissions: https://formspree.io/');
-    e.target.reset();
+    fetch(e.target.action, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: { 'Accept': 'application/json' }
+    }).then(response => {
+        if (response.ok) {
+            alert('Message sent successfully! Check your Gmail.');
+            e.target.reset();
+        } else {
+            alert('Error sending message. Please try again.');
+        }
+    }).catch(error => {
+        console.error('Form submission error:', error);
+        alert('Error sending message. Please try again.');
+    });
 });
 
 // Smooth scrolling
@@ -71,7 +94,11 @@ document.querySelectorAll('a.nav-link').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
-        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        try {
+            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        } catch (error) {
+            console.error('Smooth scroll error:', error);
+        }
     });
 });
 
@@ -87,20 +114,30 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach(section => observer.observe(section));
 
-// Particles.js for hero background
+// Back to top button
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 300);
+});
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Particles.js for background nodes
 particlesJS('particles-js', {
     particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
+        number: { value: 50, density: { enable: true, value_area: 1000 } },
         color: { value: '#a100f2' },
         shape: { type: 'circle' },
-        opacity: { value: 0.5, random: true },
+        opacity: { value: 0.3, random: true },
         size: { value: 3, random: true },
-        line_linked: { enable: true, distance: 150, color: '#a100f2', opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 2, direction: 'none', random: true }
+        line_linked: { enable: true, distance: 120, color: '#a100f2', opacity: 0.3, width: 1 },
+        move: { enable: true, speed: 1.5, direction: 'none', random: true }
     },
     interactivity: {
         detect_on: 'canvas',
-        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
-        modes: { repulse: { distance: 100 }, push: { particles_nb: 4 } }
+        events: { onhover: { enable: false }, onclick: { enable: true, mode: 'push' } },
+        modes: { push: { particles_nb: 3 } }
     }
 });
+console.log('Particles.js initialized');
