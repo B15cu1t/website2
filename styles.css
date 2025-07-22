@@ -148,7 +148,7 @@ body {
 }
 
 section {
-    padding: 7rem 0;
+    padding: 5rem 0;
 }
 
 .project-card {
@@ -156,6 +156,7 @@ section {
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     min-height: 350px;
     width: 100%;
+    opacity: 1;
 }
 
 .project-card:hover {
@@ -168,10 +169,12 @@ section {
     backdrop-filter: blur(15px);
     border: 1px solid var(--card-border);
     border-radius: 18px;
-    padding: 2rem;
+    padding: 1.5rem;
     color: var(--text-light);
     transition: all 0.4s ease;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-img-top {
@@ -191,6 +194,7 @@ section {
 .card-text {
     font-size: 1.1rem;
     font-weight: 300;
+    flex-grow: 1;
 }
 
 .bg-secondary {
@@ -254,6 +258,10 @@ footer {
 #project-container {
     z-index: 2;
     position: relative;
+}
+
+#project-loading, #project-fallback {
+    transition: opacity 0.3s ease;
 }
 
 #back-to-top {
@@ -351,46 +359,48 @@ body.light-mode footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     .hero .lead {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
     .btn-lg {
         padding: 0.8rem 2rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     .navbar-brand {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
     .nav-link {
-        font-size: 1.1rem;
-        margin-left: 1rem;
+        font-size: 1rem;
+        margin-left: 0.5rem;
     }
     .card-title {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
     .card-text {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     .card-img-top {
-        max-height: 180px;
+        max-height: 160px;
     }
     #back-to-top {
         bottom: 20px;
         right: 20px;
         padding: 0.8rem 1.2rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     .project-card {
         width: 100%;
-        min-height: 350px;
+        min-height: 300px;
         margin-bottom: 1.5rem;
+        opacity: 1 !important;
+        display: block !important;
     }
     .row {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 1rem;
     }
     .col-md-4 {
         flex: 1 1 100%;
@@ -400,6 +410,9 @@ body.light-mode footer {
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+    section {
+        padding: 3rem 0;
     }
 }
 
