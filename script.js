@@ -1,4 +1,103 @@
-// Fallback projects if fetch fails
+const projects = [
+    {
+        title: "Table Extraction Tool",
+        description: "A Python script to automate extraction of tables from documents or websites.",
+        category: "Python",
+        technologies: ["Python"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Mini Runner Game",
+        description: "A simple 2D runner game built with Pygame.",
+        category: "Python",
+        technologies: ["Python", "Pygame"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Tetris Game",
+        description: "A classic Tetris game implemented using Tkinter.",
+        category: "Python",
+        technologies: ["Python", "Tkinter"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "PNG Sprite Extractor",
+        description: "A tool to extract sprites from PNG files (work in progress).",
+        category: "Python",
+        technologies: ["Python"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "QR Code Generator",
+        description: "Generates QR codes from any input text or URL.",
+        category: "Python",
+        technologies: ["Python", "qrcode"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "GIF Creator",
+        description: "Combines multiple images to create animated GIFs.",
+        category: "Python",
+        technologies: ["Python", "Pillow"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Dinosaur Game Cheat",
+        description: "An automation script that detects obstacles and auto-jumps in the Chrome dinosaur game.",
+        category: "Python",
+        technologies: ["Python", "PyAutoGUI"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Guess the Word Game",
+        description: "A word-guessing game with a fancy UI.",
+        category: "Python",
+        technologies: ["Python", "Tkinter"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Discord Tag Bot",
+        description: "A bot to automate tagging friends on Discord.",
+        category: "Python",
+        technologies: ["Python", "discord.py"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Geo-Locator",
+        description: "A C# WinForms app that uses a public API to locate servers via DNS or IP (e.g., 8.8.8.8 for Google).",
+        category: "C#",
+        technologies: ["C#", ".NET", "WinForms"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Password Cracker",
+        description: "A Batch script that brute-forces passwords for ZIP files using a wordlist.",
+        category: "Batch",
+        technologies: ["Batch"],
+        link: "#",
+        image: ""
+    },
+    {
+        title: "Phishing Attack Simulation",
+        description: "A PHP-based fake login page that sends captured data to a Discord webhook (for educational purposes).",
+        category: "PHP",
+        technologies: ["PHP", "Discord Webhook"],
+        link: "#",
+        image: ""
+    }
+];
+
+// Fallback projects if needed
 const fallbackProjects = [
     {
         title: "Table Extraction Tool",
@@ -18,32 +117,21 @@ const fallbackProjects = [
     }
 ];
 
-// Load projects from JSON
-fetch('projects.json', { cache: 'no-store' })
-    .then(response => {
-        console.log('Fetch status:', response.status, 'URL:', response.url);
-        if (!response.ok) throw new Error(`Failed to load projects.json: ${response.statusText}`);
-        return response.json();
-    })
-    .then(data => {
-        console.log('Projects loaded:', data);
-        displayProjects(data);
-        initParticles(); // Initialize particles after projects load
-    })
-    .catch(error => {
-        console.error('Error loading projects:', error);
-        document.getElementById('project-fallback').style.display = 'block';
-        document.getElementById('project-fallback').innerHTML = `<p>Error loading projects: ${error.message}. Showing fallback projects.</p>`;
-        displayProjects(fallbackProjects); // Use fallback data
-        initParticles();
-    });
+// Display projects immediately with embedded data
+document.addEventListener('DOMContentLoaded', () => {
+    displayProjects(projects);
+    initParticles();
+});
 
 // Display projects
 function displayProjects(projects) {
     const container = document.getElementById('project-container');
+    const loading = document.getElementById('project-loading');
+    const fallback = document.getElementById('project-fallback');
+    loading.style.display = 'none';
     container.innerHTML = '';
     projects.forEach((project, index) => {
-        const image = project.image ? `<img src="${project.image}" class="card-img-top" alt="${project.title} screenshot">` : '';
+        const image = project.image ? `<img src="${project.image}" class="card-img-top" alt="${project.title} screenshot" loading="lazy">` : '';
         const card = `
             <div class="col-md-4 project-card" data-category="${project.category}">
                 <div class="card">
@@ -59,6 +147,13 @@ function displayProjects(projects) {
         `;
         container.innerHTML += card;
         console.log(`Rendered project ${index + 1}: ${project.title}`);
+    });
+    // Ensure projects are visible on mobile
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
     });
 }
 
@@ -163,8 +258,8 @@ function initParticles() {
         },
         interactivity: {
             detect_on: 'canvas',
-            events: { onhover: { enable: false }, onclick: { enable: true, mode: 'push' } },
-            modes: { push: { particles_nb: 3 } }
+            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+            modes: { push: { particles_nb: 3 }, repulse: { distance: 100, duration: 0.4 } }
         }
     });
     console.log('Particles.js initialized');
