@@ -8,6 +8,12 @@
     --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* If JS is disabled, make sure sections are still visible */
+html.no-js .fade-in-section {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
 body {
     font-family: 'JetBrains Mono', 'Courier New', monospace;
     background-color: var(--bg-dark);
@@ -424,4 +430,33 @@ body.light-mode footer {
     .project-card {
         margin-bottom: 2rem;
     }
+}
+
+/* Smooth fade-in for project cards */
+.fade-in {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Sticky filter buttons on mobile */
+@media (max-width: 768px) {
+    .filter-buttons {
+        position: sticky;
+        top: 60px;
+        background: var(--bg-secondary);
+        z-index: 10;
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+}
+
+/* Ensure project images cover fully */
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
 }
