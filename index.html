@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="Portfolio of Teo Gjurevski, an aspiring cybersecurity expert from Macedonia, showcasing projects in Python, C#, Batch, and PHP.">
     <meta name="keywords" content="cybersecurity, networking, Python, portfolio, Teo Gjurevski, Macedonia">
@@ -11,8 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dark-mode">
-    <div id="particles-js" class="particles"></div>
+<body>
+    <div id="particles-js" class="particles" aria-hidden="true"></div>
+
     <header aria-label="Main navigation">
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
             <div class="container">
@@ -66,19 +67,20 @@
         <section id="projects" class="py-5 bg-secondary fade-in-section">
             <div class="container">
                 <h2 class="text-center mb-5">My Projects</h2>
-                <div class="filter-buttons mb-5 text-center">
-                    <button class="btn btn-outline-accent m-1 active" data-filter="all" aria-label="Show all projects">All</button>
-                    <button class="btn btn-outline-accent m-1" data-filter="Python" aria-label="Show Python projects">Python</button>
-                    <button class="btn btn-outline-accent m-1" data-filter="C#" aria-label="Show C# projects">C#</button>
-                    <button class="btn btn-outline-accent m-1" data-filter="Batch" aria-label="Show Batch projects">Batch</button>
-                    <button class="btn btn-outline-accent m-1" data-filter="PHP" aria-label="Show PHP projects">PHP</button>
+                <div class="filter-buttons mb-4 text-center" role="toolbar" aria-label="Project filters">
+                    <button class="btn btn-outline-accent m-1 active" data-filter="all" aria-pressed="true">All</button>
+                    <button class="btn btn-outline-accent m-1" data-filter="Python">Python</button>
+                    <button class="btn btn-outline-accent m-1" data-filter="C#">C#</button>
+                    <button class="btn btn-outline-accent m-1" data-filter="Batch">Batch</button>
+                    <button class="btn btn-outline-accent m-1" data-filter="PHP">PHP</button>
                 </div>
-                <div class="row" id="project-container" aria-live="polite">
-                    <div class="col-12 text-center text-light" id="project-loading">
+
+                <div class="row g-4 align-items-stretch" id="project-container" aria-live="polite">
+                    <div class="col-12 text-center text-light" id="project-loading" aria-hidden="false">
                         <p>Loading projects...</p>
                     </div>
-                    <div class="col-12 text-center text-light" id="project-fallback" style="display: none;">
-                        <p>Unable to load projects. Please check your connection or try again later.</p>
+                    <div class="col-12 text-center text-light" id="project-fallback" style="display:none;">
+                        <p>Unable to load projects. Please try again later.</p>
                     </div>
                 </div>
             </div>
@@ -120,6 +122,7 @@
 
     <button id="back-to-top" class="btn btn-accent" aria-label="Back to top">↑</button>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
