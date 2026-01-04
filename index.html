@@ -1,128 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>B15cu1t // root@local.host</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teo Gjurevski | Cybersecurity & Network Engineer</title>
+    <meta name="description" content="Portfolio of Teo Gjurevski - Cybersecurity Enthusiast, Python Developer, and Network Security Specialist based in Macedonia.">
+    <meta name="keywords" content="cybersecurity, network security, python developer, ethical hacking, penetration testing, CTF, Macedonia">
+    <meta name="author" content="Teo Gjurevski">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23050505%22/><text y=%22.8em%22 x=%225%22 font-family=%22monospace%22 font-weight=%22bold%22 font-size=%2270%22 fill=%22%23FF4F00%22>&gt;_</text></svg>">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Teo Gjurevski | Cybersecurity Portfolio">
+    <meta property="og:description" content="Cybersecurity Enthusiast & Python Developer specializing in network security tools and automation.">
+    <meta property="og:type" content="website">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!--  Boot Sequence Overlay  -->
-    <div class="boot-overlay" id="boot-overlay">
+    <!-- Scanlines overlay -->
+    <div class="scanlines"></div>
+    
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-rain"></canvas>
+    
+    <!-- Boot Sequence -->
+    <div id="boot-sequence" class="boot-overlay">
         <div class="boot-content">
-            <div class="boot-line">&gt; INITIALIZING B15CU1T_SYSTEMS...</div>
-            <div class="boot-line">&gt; LOADING SECURITY_MODULES... <span class="boot-progress">[<span id="boot-bar"></span>]</span> <span id="boot-percent">0%</span></div>
-            <div class="boot-line">&gt; ESTABLISHING SECURE_CONNECTION...</div>
-            <div class="boot-line boot-success">&gt; SYSTEM_READY // WELCOME_USER</div>
+            <div class="boot-lines"></div>
+            <div class="boot-progress">
+                <div class="boot-bar"></div>
+            </div>
         </div>
     </div>
-
-    <div class="screen-vignette"></div>
-    <div class="custom-cursor"></div>
-    <div class="cursor-dot"></div>
-    <div id="particles-js"></div>
-
-    <!-- Easter Egg Message -->
-    <div class="easter-egg-popup" id="easter-egg">
-        <div class="easter-egg-content">
-            <div class="mb-3">🎉 KONAMI CODE DETECTED 🎉</div>
-            <div class="text-accent mb-2">ACCESS_GRANTED</div>
-            <div class="small">You found the secret! Check the console for a surprise...</div>
+    
+    <!-- FSociety Hijack Easter Egg -->
+    <div id="hijack-overlay" class="hijack-overlay hidden">
+        <div class="hijack-scanlines"></div>
+        <div class="hijack-content">
+            <div class="hijack-messages"></div>
+            <div class="hijack-main-text"></div>
         </div>
+        <div class="hijack-exit">press any key to continue_</div>
     </div>
 
-    <nav class="navbar navbar-dark fixed-top">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand fw-bold" href="#">[root@B15cu1t:~]# _</a>
-            <div class="d-flex align-items-center">
-                <div class="system-status d-none d-md-flex align-items-center me-4">
-                    <span class="pulse-dot"></span>
-                    <span class="status-text">UPLINK: <span class="text-white">ACTIVE_NODE</span></span>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">[root@B15cu1t:~]# _</a>
+            <div class="nav-right">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">UPLINK: <span class="status-active">ACTIVE</span></span>
                 </div>
-                <div class="social-links">
-                    <a href="https://github.com/B15cu1t" target="_blank" class="social-link">GITHUB</a>
-                    <a href="https://www.linkedin.com/in/teo-gjurevski-865a273a2/" target="_blank" class="social-link ms-3">LINKEDIN</a>
+                <div class="nav-links">
+                    <a href="https://github.com/B15cu1t" target="_blank" rel="noopener noreferrer">GITHUB</a>
+                    <a href="https://www.linkedin.com/in/teo-gjurevski-865a273a2/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="hero">
-        <div class="container text-center">
-            <div class="directory-path mb-4" data-aos="fade-down">./etc/init.d/profile</div>
-            <h1 class="display-2 fw-bold mb-4" id="glitch-name" data-value="Teo Gjurevski" data-aos="zoom-in">Teo Gjurevski</h1>
-            <p class="tagline mb-5" data-aos="fade-up" data-aos-delay="200">Cybersecurity Enthusiast • Python Developer • Network Explorer</p>
+        <div class="hero-container">
+            <!-- Directory path -->
+            <div class="hero-path">~/etc/init.d/profile</div>
             
-            <div class="bio-container" data-aos="fade-up" data-aos-delay="400">
-                <div class="bio-box mb-5">
-                    <p class="bio-text mb-0">
-                        First-year student at FINKI, Macedonia, passionate about cybersecurity and building tools that make a difference. I'm diving deep into network reconnaissance, Python development, and ethical hacking. Always learning, always coding, always curious about how systems work (and how to secure them).
-                        <span class="cursor-line"></span>
-                    </p>
+            <!-- Name with glitch effect -->
+            <h1 class="hero-name" id="hero-name">Teo Gjurevski</h1>
+            
+            <!-- Tagline -->
+            <p class="hero-tagline">Cybersecurity Enthusiast • Python Developer • Network Engineer</p>
+            
+            <!-- Bio -->
+            <div class="hero-bio">
+                <p>
+                    First-year student at FINKI, Macedonia, passionate about cybersecurity and building 
+                    tools that make a difference. Diving deep into network reconnaissance, Python 
+                    development, and ethical hacking.
+                    <span class="cursor-blink"></span>
+                </p>
+            </div>
+            
+            <!-- Skills Grid -->
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-label">LANGUAGES</div>
+                    <div class="skill-items">Python • C# • C++ • Batch • PHP</div>
+                    <div class="skill-bar"><div class="skill-fill" style="--level: 75%"></div></div>
                 </div>
-                
-                <div class="skills-grid mb-5" data-aos="fade-up" data-aos-delay="600">
-                    <div class="skill-item">
-                        <span class="skill-label">LANGUAGES</span>
-                        <span class="skill-value">Python • C# • PHP • Batch • C++ </span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-label">FOCUS_AREAS</span>
-                        <span class="skill-value">Network Security • Automation • Recon Tools</span>
-                    </div>
-                    <div class="skill-item">
-                        <span class="skill-label">CURRENTLY</span>
-                        <span class="skill-value">Learning penetration testing & advanced Python</span>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-label">FOCUS_AREAS</div>
+                    <div class="skill-items">Network Security • Automation • Recon Tools</div>
+                    <div class="skill-bar"><div class="skill-fill" style="--level: 65%"></div></div>
                 </div>
-
-                <!-- Interactive Terminal -->
-                <div class="interactive-terminal mb-5" data-aos="fade-up" data-aos-delay="800">
-                    <div class="terminal-header">
-                        <span class="terminal-dot"></span>
-                        <span class="terminal-dot"></span>
-                        <span class="terminal-dot"></span>
-                        <span class="ms-3 small">interactive_shell.sh</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div id="terminal-output"></div>
-                        <div class="terminal-input-line">
-                            <span class="terminal-prompt">visitor@b15cu1t:~$</span>
-                            <input type="text" id="terminal-input" class="terminal-input" placeholder="Try: help" autocomplete="off">
-                        </div>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-label">TOOLS</div>
+                    <div class="skill-items">Git • Linux • Wireshark • Burp Suite</div>
+                    <div class="skill-bar"><div class="skill-fill" style="--level: 60%"></div></div>
                 </div>
-
-                <div class="mt-5 mb-5">
-                    <a href="#projects" class="btn-cmd text-decoration-none">VIEW_PROJECTS</a>
+                <div class="skill-card">
+                    <div class="skill-label">CURRENTLY</div>
+                    <div class="skill-items">Penetration Testing • Advanced Python</div>
+                    <div class="skill-bar"><div class="skill-fill" style="--level: 40%"></div></div>
                 </div>
             </div>
             
-            <div class="scroll-indicator">
-                <span>SCROLL_DOWN</span>
-                <div class="arrow"></div>
+            <!-- Terminal -->
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn red"></span>
+                        <span class="terminal-btn yellow"></span>
+                        <span class="terminal-btn green"></span>
+                    </div>
+                    <span class="terminal-title">visitor@b15cu1t: ~</span>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <div class="terminal-line output muted">Last login: <span id="last-login"></span> on ttys000</div>
+                    <div class="terminal-line output muted small">Type 'help' for available commands.</div>
+                    <div id="terminal-output"></div>
+                    <div class="terminal-input-line">
+                        <span class="prompt-user">visitor@b15cu1t</span>
+                        <span class="prompt-sep">:</span>
+                        <span class="prompt-dir">~</span>
+                        <span class="prompt-end">$ </span>
+                        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
             </div>
+            
+            <!-- CTA -->
+            <a href="#projects" class="cta-button">
+                <span>VIEW_PROJECTS</span>
+                <span class="cta-arrow">→</span>
+            </a>
         </div>
     </header>
 
-    <main class="container pb-5">
-        <!-- Certification Section -->
-        <section id="certifications" class="py-5 my-5">
-            <h2 class="h6 fw-bold text-white mb-5" style="letter-spacing: 2px;">// .CERTIFICATIONS</h2>
-            <div class="cert-card" data-aos="fade-up">
-                <div class="cert-badge">
-                    <div class="cert-icon">🛡️</div>
-                </div>
-                <div class="cert-details">
-                    <h3 class="h5 fw-bold mb-3">Cyber Exercises and Experiential Education Program (CE3)</h3>
-                    <p class="text-main mb-3">Balkan Hacking CTF Event</p>
-                    <div class="cert-meta">
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Certification -->
+        <section class="section">
+            <h2 class="section-title">// certifications</h2>
+            <div class="cert-card">
+                <div class="cert-icon">🛡️</div>
+                <div class="cert-info">
+                    <h3 class="cert-name">Cyber Exercises and Experiential Education Program (CE3)</h3>
+                    <p class="cert-org">Balkan Hacking CTF Event</p>
+                    <div class="cert-tags">
                         <span class="cert-tag">SANS</span>
                         <span class="cert-tag">CRDFGLOBAL</span>
                         <span class="cert-tag">Kosovo</span>
@@ -131,97 +161,97 @@
             </div>
         </section>
 
-        <section id="featured-project" class="py-5 my-5">
-            <h2 class="h6 fw-bold text-white mb-5" style="letter-spacing: 2px;">// .FEATURED_PROJECT</h2>
-            <div class="featured-showcase" data-aos="fade-up">
-                <div class="row align-items-center">
-                    <div class="col-lg-7 mb-4 mb-lg-0">
-                        <span class="badge-featured">SPOTLIGHT</span>
-                        <h3 class="h2 fw-bold mt-4 mb-4">Subdomain Enumerator</h3>
-                        <p class="text-main mb-4" style="font-size: 1.1rem; line-height: 1.8;">
-                            A Python-based reconnaissance tool for discovering hidden subdomains through wordlist enumeration. Uses threading for parallel requests and automatically logs all discovered endpoints. Perfect for security assessments and bug bounty hunting.
+        <!-- Featured Project -->
+        <section class="section">
+            <h2 class="section-title">// featured_project</h2>
+            <div class="featured-card">
+                <div class="featured-accent"></div>
+                <div class="featured-grid">
+                    <div class="featured-info">
+                        <span class="featured-badge">SPOTLIGHT</span>
+                        <h3 class="featured-name">Subdomain Enumerator</h3>
+                        <p class="featured-desc">
+                            A Python-based reconnaissance tool for discovering hidden subdomains through 
+                            wordlist enumeration. Uses threading for parallel requests and automatically 
+                            logs all discovered endpoints.
                         </p>
-                        <div class="feature-list mb-5">
-                            <div class="feature-item">✓ Multi-threaded subdomain checking</div>
-                            <div class="feature-item">✓ Custom wordlist support</div>
-                            <div class="feature-item">✓ Thread-safe result logging</div>
-                            <div class="feature-item">✓ Automatic output file generation</div>
-                        </div>
-                        <a href="https://github.com/B15cu1t/Subdomain_Enumerator" target="_blank" class="btn-cmd">VIEW_ON_GITHUB →</a>
+                        <ul class="featured-list">
+                            <li><span class="list-arrow">▸</span> Multi-threaded subdomain checking</li>
+                            <li><span class="list-arrow">▸</span> Custom wordlist support</li>
+                            <li><span class="list-arrow">▸</span> Thread-safe result logging</li>
+                            <li><span class="list-arrow">▸</span> Automatic output generation</li>
+                        </ul>
+                        <a href="https://github.com/B15cu1t/Subdomain_Enumerator" target="_blank" rel="noopener noreferrer" class="featured-link">
+                            <span>VIEW_ON_GITHUB</span>
+                            <span class="link-arrow">→</span>
+                        </a>
                     </div>
-                    <div class="col-lg-5">
-                        <div class="code-preview">
-                            <div class="code-header">
-                                <span class="code-dot"></span>
-                                <span class="code-dot"></span>
-                                <span class="code-dot"></span>
-                                <span class="ms-3 small">subdomain_enum.py</span>
+                    <div class="featured-preview">
+                        <div class="preview-header">
+                            <div class="preview-buttons">
+                                <span class="preview-btn red"></span>
+                                <span class="preview-btn yellow"></span>
+                                <span class="preview-btn green"></span>
                             </div>
-                            <pre class="code-body"><code>$ python subdomain_enum.py
-
-[*] Scanning example.com
-[*] Wordlist: subdomains.txt
-
-[+] Discovered subdomain: https://admin.example.com
-[+] Discovered subdomain: https://dev.example.com
-[+] Discovered subdomain: https://api.example.com
-
-[✓] Results saved to:
-    discovered_subdomains_for_example.com.txt</code></pre>
+                            <span class="preview-title">subdomain_enum.py</span>
                         </div>
+                        <pre class="preview-code">$ python subdomain_enum.py
+
+[*] Target: example.com
+[*] Wordlist: subdomains.txt
+[*] Threads: 50
+
+[+] https://admin.example.com
+[+] https://dev.example.com
+[+] https://api.example.com
+[+] https://staging.example.com
+
+[✓] Found 4 subdomains
+[✓] Results saved to output.txt</pre>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="py-5 my-5">
-            <h2 class="h6 fw-bold text-white mb-5" style="letter-spacing: 2px;">// .SECURITY_TOOLS</h2>
-            <div class="row g-4 mb-5" id="security-projects-row"></div>
+        <!-- Projects -->
+        <section class="section" id="projects">
+            <h2 class="section-title">// security_tools</h2>
+            <div class="projects-grid" id="security-projects"></div>
             
-            <h2 class="h6 fw-bold text-white mt-5 mb-5" style="letter-spacing: 2px;">// .AUTOMATION_UTILS</h2>
-            <div class="row g-4 mb-5" id="automation-projects-row"></div>
+            <h2 class="section-title">// automation_utils</h2>
+            <div class="projects-grid" id="automation-projects"></div>
             
-            <h2 class="h6 fw-bold text-white mt-5 mb-5" style="letter-spacing: 2px;">// .EXPERIMENTS_LAB</h2>
-            <div class="row g-4 mb-5" id="experiment-projects-row"></div>
+            <h2 class="section-title">// experiments_lab</h2>
+            <div class="projects-grid" id="experiments-projects"></div>
         </section>
 
-        <section id="contact" class="contact-terminal my-5" data-aos="fade-up">
-            <h2 class="h6 fw-bold mb-5 text-accent">// .ESTABLISH_UPLINK</h2>
-            <form id="contact-form">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <label for="name" class="form-label-hidden">Name</label>
-                        <input type="text" name="name" id="name" class="form-input" placeholder="SOURCE_ID" required>
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="contact-card">
+                <h2 class="section-title">// establish_uplink</h2>
+                <form id="contact-form" class="contact-form" action="https://formspree.io/f/mkogqrrz" method="POST">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="source_id" required>
+                        <input type="email" name="email" placeholder="reply_addr" required>
                     </div>
-                    <div class="col-md-6">
-                        <label for="email" class="form-label-hidden">Email</label>
-                        <input type="email" name="email" id="email" class="form-input" placeholder="REPLY_ADDR" required>
-                    </div>
-                    <div class="col-12">
-                        <label for="message" class="form-label-hidden">Message</label>
-                        <textarea name="message" id="message" class="form-input" rows="4" placeholder="TRANSMIT_DATA..." required></textarea>
-                    </div>
-                    <div class="col-12 text-center mt-4">
-                        <button type="submit" class="btn-cmd">SEND_PACKET</button>
-                    </div>
-                </div>
-            </form>
+                    <textarea name="message" placeholder="transmit_data..." rows="4" required></textarea>
+                    <button type="submit" id="submit-btn">
+                        <span class="btn-text">send_packet</span>
+                    </button>
+                </form>
+            </div>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container text-center">
-            <p class="mb-2">© 2024 B15cu1t Security Systems</p>
-            <p class="small text-muted">Authored in Skopje, MKD // <a href="#" class="footer-link">Back_to_Root</a></p>
-        </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-copy">© 2024 B15cu1t Security Systems</p>
+        <p class="footer-location">
+            Skopje, MKD // 
+            <button id="back-to-top" class="footer-link">back_to_root</button>
+        </p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
